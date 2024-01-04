@@ -1,6 +1,7 @@
 <?php
 
 require_once("src/fpdf.php");
+use Application\bdd\DataBase;
 
 class PDF extends FPDF
 {

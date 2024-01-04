@@ -1,6 +1,10 @@
 <?php
 
+namespace Application\model\classAgent;
 
+require_once("src/bdd/bdd_connection.php");
+
+use  Application\bdd\DataBase;
 class Agent
 {
    private int $id_agent;
@@ -223,25 +227,24 @@ class AgentRepository{
         return $agent;
     }
 
-    public function createAgent(): void
+    public function createAgent(array $input,array $image): void
     {
-        if (!empty($_POST)) {
+        if (!empty($input)) {
 
-            $nom_agt = $_POST["nom"];
-            $prenom_agt = $_POST["prenom"];
-            $dateNaiss = $_POST["dateNaiss"];
-            $anneeNaiss = (int) explode("-", $_POST["dateNaiss"])[0];
-            $password = $_POST["pass"];
-            $telephone = $_POST["tel"];
-            $adresse = $_POST["adresse"];
-            $quartier = $_POST["quartier"];
-            $sexe = $_POST["sexe"];
-            $mail = $_POST["mail"];
+            $nom_agt = $input["nom"];
+            $prenom_agt = $input["prenom"];
+            $dateNaiss = $input["dateNaiss"];
+            $anneeNaiss = (int) explode("-", $input["dateNaiss"])[0];
+            $password = $input["pass"];
+            $telephone = $input["tel"];
+            $adresse = $input["adresse"];
+            $quartier = $input["quartier"];
+            $sexe = $input["sexe"];
+            $mail = $input["mail"];
             $age = (int) date("Y") - $anneeNaiss;
-            $photo = $_FILES["photo"]["name"];
-            $photo_temp = $_FILES["photo"]["tmp_name"];
+            $photo = $image["photo"]["name"];
+            $photo_temp = $image["photo"]["tmp_name"];
             move_uploaded_file($photo_temp, "src/img/img_agent/" . $photo);
-
             $requete = $this->connection->connect()->prepare("INSERT INTO `agent`(`agt_nom`, `agt_prenom`, `agt_age`, `agt_sexe`, `agt_telephone`, `agt_adresse`, `agt_quartier`,
              `agt_mot_de_passe`, `agt-mail`, `agt_photo`,
              `dateNaiss_agt`, `date_agt`, `heure`) VALUES (?,?,?,
@@ -253,33 +256,31 @@ class AgentRepository{
         }
     }
 
-    public function deleteAgent(string $id){
-        if(!empty($_GET["id"])){
-            $id = $_GET["id"];
+    public function deleteAgent(string $id):void{
+        if(!empty($id)){
             $requete = $this->connection::connect()->prepare("DELETE FROM agent where id_agent = ?");
             $requete->execute(array($id));
         }
     }
 
 
-    public function updateAgent():void
+    public function updateAgent(array $input,string $id,array $image):void
     {
-        if (!empty($_POST)  && !empty($_GET["id"])) {
-            $id = $_GET["id"];
-            $nom_agt = $_POST["nom"];
-            $prenom_agt = $_POST["prenom"];
-            $dateNaiss = $_POST["dateNaiss"];
-            $anneeNaiss = (int) explode("-", $_POST["dateNaiss"])[0];
-            $telephone = $_POST["tel"];
-            $adresse = $_POST["adresse"];
-            $quartier = $_POST["quartier"];
-            $sexe = $_POST["sexe"];
-            $mail = $_POST["mail"];
+        if (!empty($input)  && !empty($id)) {
+            $nom_agt = $input["nom"];
+            $prenom_agt = $input["prenom"];
+            $dateNaiss = $input["dateNaiss"];
+            $anneeNaiss = (int) explode("-", $input["dateNaiss"])[0];
+            $telephone = $input["tel"];
+            $adresse = $input["adresse"];
+            $quartier = $input["quartier"];
+            $sexe = $input["sexe"];
+            $mail = $input["mail"];
             $age = (int) date("Y") - $anneeNaiss;
 
-            if (isset($_FILES) && !empty($_FILES["photo"]["size"]) > 0) {
-                $photo = $_FILES["photo"]["name"];
-                $photo_temp = $_FILES["photo"]["tmp_name"];
+            if (isset($image) && !empty($image["photo"]["size"]) > 0) {
+                $photo = $image["photo"]["name"];
+                $photo_temp = $image["photo"]["tmp_name"];
                 move_uploaded_file($photo_temp, "src/img/img_agent/" . $photo);
                 $requete = $this->connection::connect()->prepare("UPDATE `agent` SET `agt_nom`=?,`agt_prenom`=?,`agt_age`=?,
             `agt_sexe`=?,`agt_telephone`=?,`agt_adresse`=?,
@@ -288,7 +289,6 @@ class AgentRepository{
             WHERE id_agent = ?");
                 $params = array($nom_agt, $prenom_agt, $age, $sexe, $telephone, $adresse, $quartier, $mail, $dateNaiss, $photo, $id);
                 $requete->execute($params) or die(var_dump("erreur lors de la mise à jour"));
-
             } else {
                 $requete = $this->connection::connect()->prepare("UPDATE `agent` SET `agt_nom`=?,`agt_prenom`=?,`agt_age`=?,
         `agt_sexe`=?,`agt_telephone`=?,`agt_adresse`=?,

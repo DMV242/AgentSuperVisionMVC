@@ -1,6 +1,11 @@
 <?php
 
-namespace Application\Controller;
+namespace Application\Controller\Agent;
+
+require_once("src/model/Agent.php");
+require_once("src/bdd/bdd_connection.php");
+require_once("src/controllers/Controller.php");
+
 use Application\model\classAgent\AgentRepository;
 use  Application\bdd\DataBase;
 use Application\Interface\Controller\Controller;
@@ -8,7 +13,7 @@ use Application\Interface\Controller\Controller;
 
 class DeleteAgent implements Controller
 {
-        public function execute()
+        public function execute(): void
         {
             $agentRepository= new AgentRepository();
             $agentRepository->connection = new DataBase;

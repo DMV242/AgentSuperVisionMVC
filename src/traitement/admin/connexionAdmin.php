@@ -1,5 +1,6 @@
 <?php
 session_start();
+use  Application\bdd\DataBase;
 require ("../../bdd/bdd_connection.php");
 
 
@@ -16,7 +17,7 @@ if(isset($_POST["name"]) && isset($_POST["pass"]) ){
     $db = DataBase::connect();
     $requete = $db->prepare("SELECT * FROM admin WHERE nom=? AND mot_de_passe=?");
     $requete->execute(array($name,$pass));
-    DataBase::disconnect();
+
 
     if($requete->rowCount() == 1){
         $_SESSION["nom"] = $name; 
