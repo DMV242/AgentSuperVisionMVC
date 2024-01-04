@@ -2,7 +2,8 @@
 
 namespace Application\model\classAgent;
 
-require_once("src/bdd/bdd_connection.php");
+require_once("src/bdd/Database.php");
+require_once("src/lib/cleanData.php");
 
 use  Application\bdd\DataBase;
 class Agent
@@ -182,7 +183,7 @@ class AgentRepository{
      */
     public function getAgents(): array
     {
-        $statement = $this->connection->connect()->prepare("SELECT * FROM agent");
+        $statement = $this->connection::connect()->prepare("SELECT * FROM agent");
         $statement->execute();
         $agents = [];
         while ($row =  $statement->fetch()){
@@ -207,7 +208,7 @@ class AgentRepository{
 
     public function getAgent(string $id):Agent
     {
-        $statement = $this->connection->connect()->prepare("SELECT * FROM agent where id_agent = ?");
+        $statement = $this->connection::connect()->prepare("SELECT * FROM agent where id_agent = ?");
         $statement->execute([$id]);
         $row =  $statement->fetch();
         $agent = new Agent();
@@ -231,21 +232,21 @@ class AgentRepository{
     {
         if (!empty($input)) {
 
-            $nom_agt = $input["nom"];
-            $prenom_agt = $input["prenom"];
-            $dateNaiss = $input["dateNaiss"];
-            $anneeNaiss = (int) explode("-", $input["dateNaiss"])[0];
-            $password = $input["pass"];
-            $telephone = $input["tel"];
-            $adresse = $input["adresse"];
-            $quartier = $input["quartier"];
-            $sexe = $input["sexe"];
-            $mail = $input["mail"];
+            $nom_agt = cleanData($input["nom"]);
+            $prenom_agt = cleanData($input["prenom"]);
+            $dateNaiss = cleanData($input["dateNaiss"]);
+            $anneeNaiss = (int) explode("-", cleanData($input["dateNaiss"]))[0];
+            $password = md5(cleanData($input["pass"]));
+            $telephone = cleanData($input["tel"]);
+            $adresse = cleanData($input["adresse"]);
+            $quartier = cleanData($input["quartier"]);
+            $sexe = cleanData($input["sexe"]);
+            $mail = cleanData($input["mail"]);
             $age = (int) date("Y") - $anneeNaiss;
             $photo = $image["photo"]["name"];
             $photo_temp = $image["photo"]["tmp_name"];
             move_uploaded_file($photo_temp, "src/img/img_agent/" . $photo);
-            $requete = $this->connection->connect()->prepare("INSERT INTO `agent`(`agt_nom`, `agt_prenom`, `agt_age`, `agt_sexe`, `agt_telephone`, `agt_adresse`, `agt_quartier`,
+            $requete = $this->connection::connect()->prepare("INSERT INTO `agent`(`agt_nom`, `agt_prenom`, `agt_age`, `agt_sexe`, `agt_telephone`, `agt_adresse`, `agt_quartier`,
              `agt_mot_de_passe`, `agt-mail`, `agt_photo`,
              `dateNaiss_agt`, `date_agt`, `heure`) VALUES (?,?,?,
              ?,?,?,?,?,?,?,
@@ -267,15 +268,15 @@ class AgentRepository{
     public function updateAgent(array $input,string $id,array $image):void
     {
         if (!empty($input)  && !empty($id)) {
-            $nom_agt = $input["nom"];
-            $prenom_agt = $input["prenom"];
-            $dateNaiss = $input["dateNaiss"];
-            $anneeNaiss = (int) explode("-", $input["dateNaiss"])[0];
-            $telephone = $input["tel"];
-            $adresse = $input["adresse"];
-            $quartier = $input["quartier"];
-            $sexe = $input["sexe"];
-            $mail = $input["mail"];
+            $nom_agt = cleanData($input["nom"]);
+            $prenom_agt = cleanData($input["prenom"]);
+            $dateNaiss = cleanData($input["dateNaiss"]);
+            $anneeNaiss = (int) explode("-", cleanData($input["dateNaiss"])[0]);
+            $telephone = cleanData($input["tel"]);
+            $adresse = cleanData($input["adresse"]);
+            $quartier = cleanData($input["quartier"]);
+            $sexe = cleanData($input["sexe"]);
+            $mail = cleanData($input["mail"]);
             $age = (int) date("Y") - $anneeNaiss;
 
             if (isset($image) && !empty($image["photo"]["size"]) > 0) {

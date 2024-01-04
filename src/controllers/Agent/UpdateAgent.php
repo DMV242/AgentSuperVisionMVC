@@ -3,7 +3,7 @@ namespace Application\Controller\Agent;
 
 require_once("src/controllers/Controller.php");
 require_once("src/model/Agent.php");
-require_once("src/bdd/bdd_connection.php");
+require_once("src/bdd/Database.php");
 
 use Application\model\classAgent\AgentRepository;
 use  Application\bdd\DataBase;

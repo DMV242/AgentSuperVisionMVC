@@ -1,7 +1,7 @@
 <?php
 session_start();
 use  Application\bdd\DataBase;
-require ("../../bdd/bdd_connection.php");
+require("../../bdd/Database.php");
 
 
 
