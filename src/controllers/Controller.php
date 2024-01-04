@@ -1,8 +1,7 @@
 <?php
 
-require_once("src/model/Agent.php");
-require_once ("src/bdd/bdd_connection.php");
+namespace Application\Interface\Controller;
 interface Controller
 {
-   public function execute();
+   public function execute():void;
 }

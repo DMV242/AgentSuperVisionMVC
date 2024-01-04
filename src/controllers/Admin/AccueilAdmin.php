@@ -1,10 +1,12 @@
 <?php
 
-require_once("src/model/Agent.php");
-require_once ("src/bdd/bdd_connection.php");
-require_once ("src/controllers/Controller.php");
 
-class accueilAdmin implements Controller
+namespace Application\Controller;
+use Application\model\classAgent\AgentRepository;
+use  Application\bdd\DataBase;
+use Application\Interface\Controller\Controller;
+
+class AccueilAdmin implements Controller
 {
     public function execute()
     {
