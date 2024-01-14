@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\model\classAgent;
+namespace Application\models\Agent;
 
 require_once("src/bdd/Database.php");
 require_once("src/lib/cleanData.php");

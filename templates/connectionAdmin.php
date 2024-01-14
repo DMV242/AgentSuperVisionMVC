@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connexion</title>
 
-    <link rel="stylesheet" href="./css/bootstrap.css">
-    <link rel="stylesheet" href="./css/bootstrap-theme.css">
-    <link rel="stylesheet" href="./css/admin/index.css">
+    <link rel="stylesheet" href="src/css/bootstrap.css">
+    <link rel="stylesheet" href="src/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="src/css/admin/index.css">
 
 
 </head>

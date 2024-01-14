@@ -2,10 +2,10 @@
 
 namespace Application\Controller\Agent;
 
-require_once("src/model/Agent.php");
+require_once("src/Models/Agent/Agent.php");
 require_once("src/bdd/Database.php");
-require_once("src/controllers/Controller.php");
-use Application\model\classAgent\AgentRepository;
+require_once("src/Controllers/Controller.php");
+use Application\Models\Agent\Agent;
 use  Application\bdd\DataBase;
 use Application\Interface\Controller\Controller;
 
