@@ -1,12 +1,13 @@
 <?php
 
-namespace Application\Controller\Agent;
+namespace Application\Controllers\Agent;
 
 require_once("src/Models/Agent/Agent.php");
 require_once("src/bdd/Database.php");
-require_once("src/Controllers/Controller.php");
-use Application\Models\Agent\Agent;
-use  Application\bdd\DataBase;
+require_once("src/Interface/Controller/Controller.php");
+
+use Application\bdd\DataBase;
+use Application\Models\Agent\AgentRepository;
 use Application\Interface\Controller\Controller;
 
 class AddAgent implements Controller

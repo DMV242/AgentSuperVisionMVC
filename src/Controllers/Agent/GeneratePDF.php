@@ -2,8 +2,8 @@
 
 
 
-namespace Application\Controller\Agent;
-require_once("src/controllers/Controller.php");
+namespace Application\Controllers\Agent;
+require_once("src/Interface/Controller/Controller.php");
 use Application\Interface\Controller\Controller;
 
 

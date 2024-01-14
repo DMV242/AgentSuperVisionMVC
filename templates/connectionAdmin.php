@@ -20,20 +20,16 @@
 
 
         if(
-         isset($_GET["error"]) &&
-         !empty($_GET["message"])&&
-         $_GET["error"] === true
+         !empty($error)
          )
-        echo "<h1 class='error-message'>" . $_GET["message"] . "</h1>";
-      
-    
+        echo "<h1 class='error-message'>" . $error . "</h1>";
         ?>
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
 
-                <form method="post" action="src/traitement/admin/connexionAdmin.php">
+                <form method="post" action="index.php?action=connection">
                     <h2 class="text-info">Bienvenue sur le Système de Gestion des agents</h2>
                     <div class="form-group">
                         <label for="exampleInputEmail1"> <span class="glyphicon glyphicon-user"></span> Nom
