@@ -1,8 +1,3 @@
-<?php
-
-require "../src/Isconnected.php";
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
